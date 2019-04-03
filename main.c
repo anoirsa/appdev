@@ -4,12 +4,16 @@
 #include "screen.h"
 #include<stdio.h>
 #include "sound.h"
+#include <signal.h>
 
 int main() {
 	FILE *f;
-	short sd[80000];
+	short sd[RATE];
 	while(1) {
-		system(RCMD);
+		int ret = system(RCMD);
+		if( ret == SIGINT)  break;
+
+		
 		f = fopen("test.wav" , "r");
 		if(f==NULL) {
 			printf("CaNNOT OPEN THE FILE\n");
@@ -26,9 +30,10 @@ int main() {
 		fread(&sd , sizeof(sd) , 1 , f);
 		fclose(f);
 		displayWAVHDR(hdr);
+		displayWAVDATA(sd);
 	}
 	// barChart(dec);
 	//printf("Message form main\n");
 	resetColors();
-	getchar();
+	//  getchar();
 }
