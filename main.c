@@ -12,9 +12,7 @@ int main() {
 	short sd[RATE];
 	while(1) {
 		int ret = system(RCMD);
-		if( ret == SIGINT)  break;
-
-		
+		if( ret == SIGINT)  break;		
 		f = fopen("test.wav" , "r");
 		if(f==NULL) {
 			printf("CaNNOT OPEN THE FILE\n");
