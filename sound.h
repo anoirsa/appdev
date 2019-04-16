@@ -2,7 +2,8 @@
 // #define DEBUG // in developing mode  or not , conditional compilation 
 #define RATE 16000
 #define DUR 1
-#define RCMD "arecord -r16000 -c1 -f S16_LE -d1 -q test.wav"  
+#define RCMD "arecord -r16000 -c1 -f S16_LE -d1 -q test.wav"
+#define PI 3.14159   
 
 // data structures
 
@@ -30,4 +31,5 @@ struct WAVHDR{
 void displayWAVHDR (struct WAVHDR);
 void showID(char * , char *);
 void displayWAVDATA (short []);
+void testTone(int ch, int fL, int fR,float dur);
 
