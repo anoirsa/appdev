@@ -1,1 +1,129 @@
-# This is app application development ver1
+# This is app application development ver1------------- Anouar Belila
+This is application offers a possibility to turn a Raspherry Pi as a sound device . The application comes with 2 functions : a sound collector and a test tone generator
+
+
+List of Content 
+
+
+ 
+
+1 - Configuration Instructions :  
+In order to run this project .First you need to have some esseintial devices in which this application were built on
+The necessarily devices are :
+1)-Raspberry pi
+2)-SD CARD
+3)-External USB sound card
+4)-Microphone .
+
+
+Also other important condition for this project is that it has to be run through a Linux system . it cannot be be executed through any other operating system.
+   
+
+2 - Installation instructions : 
+
+There are several settings that need to be applied to the devices before starting using the application . Otherwise the application may not run sucessfully
+
+1) -  Setting the USB Sound Card as Default : 
+In order to so  you need to : 
+* boot up RPi, and apply the USB sound card. Use .lsusb. command to check if your USB sound card is mounted
+pi@raspberrypi:~ $ lsusb
+Bus 001 Device 004: ID 0d8c:000c C-Media Electronics, Inc. Audio Adapter
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp. SMSC9512/9514 Fast Ethernet Adapter
+Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+* Use .sudo nano /etc/asound.conf.command and put following content to the file:
+pcm.!default {
+  type plug
+  slave {
+    pcm "hw:1,0"
+  }
+}
+ctl.!default {
+    type hw
+    card 1
+}
+
+*  Go to your home directory. Use .nano .asoundrc. command and put the same content to the file.
+
+*  Run .alsamixer. you should be able to see that USB sound card is the default audio device. For a more sensitive sound detection, it is better to maximize the volume of .Mic..
+
+1) - Fix the Bug of arecord : 
+In order to do so. Please do the following steps : 
+* Use .sudo nano /etc/apt/sources.list. command and add the last line: 
+deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi
+
+* Run .sudo apt-get update.
+
+* Run .sudo aptitude versions alsa-utils. to check if version 1.0.25 of alsa-util is available:
+pi@raspberrypi:~ $ sudo aptitude versions alsa-utils
+Package alsa-utils:
+i   1.0.25-4                                    oldstable                                 500
+p   1.0.28-1                                    stable                                    500
+
+* Run .sudo apt-get install alsa-utils=1.0.25-4. to downgrade.
+
+* Reboot (if necessary)
+
+* Run .arecord -r44100 -c1 -f S16_LE -d5 test.wav. to test that your microphone is working. You should see a .test.wav. file in the current folder.
+
+* Put earphone on the USB sound card. Run .aplay test.wav. to check that your recording is okay.
+
+
+3 - Operating Instructions
+
+You first have to build the file by commanding  : "make clean" and then "make".
+After the first step you need to run the application by commanding /sound.out . The microphone will start recording the sound within its the enviromnment, you could easily access the recorded results on the screen.
+If you want to make a frequency sound file of the recorded results you could easily do by commanding /sound.out arg 
+The results are also sent to PHP server. 
+
+
+4- list of files
+
+You can download all the files and the source codes that are included in this project through this link 
+https://github.com/anoirsa/appdev
+
+The titles of files are : 
+main.c
+screen.c
+screen.h
+sound.c
+sound.h
+comm.c
+comm.h
+testcurl.c
+
+5 - Copyright : 
+Copyright © 2019.
+All rights reversed
+
+You may use this application within all the limits in accordance to the Finnish laws and the shared internationl laws and the supplier company policies .
+* You do not have the right to use this application in anything related to recognised unlawful actions under the Finnish laws .
+* You do not have the right to use this application in anything that goes in contrast with the supplier policices such as using the application without having a valid license Key . 
+* You are not legally allowed to make any modification to the application and or copying it and supplying it under a different name or entity 
+
+
+
+
+   
+
+6 - Contact Info.
+The developer of this appliction is : Anouar Belila
+1st year student at Vaasa university of applied sciences (Vaasan ammattikorkeakoulu)
+E-mail address : Anouarbelilawoo@outlook.com 
+Phone number : +358 41 7169450
+
+7- Credits and Acknowledgments : 
+This application is developed by Anouar Belila under the supervision of VAMK principal lecturer Chao Gao  and thanks to the collaboration with all the first year IT student. 
+Special credits goes to the support of VAMK community and the head of the department for their efforts to build this project in the most accurate way possible. 
+   
+
+
+
+
+
+
+
+   
+
